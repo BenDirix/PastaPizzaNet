@@ -31,13 +31,16 @@ namespace PastaPizzaNet
         public decimal BerekenBedrag()
         {
             decimal prijs = 0m;
-            if (Naam == Enum.Dessert.Cake)
-                prijs = 2.00m;
-            if (Naam == Enum.Dessert.Ijs)
-                prijs = 3.00m;
-            if (Naam == Enum.Dessert.Tiramisu)
-                prijs = 3.00m;
-
+            switch (Naam)
+            {
+                case Enum.Dessert.Cake:
+                    prijs = 2.00m;
+                    break;
+                case Enum.Dessert.Ijs:
+                case Enum.Dessert.Tiramisu:
+                    prijs = 3.00m;
+                    break;
+            }
             return prijs;
         }
 
