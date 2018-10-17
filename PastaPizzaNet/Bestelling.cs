@@ -86,7 +86,6 @@ namespace PastaPizzaNet
             str.Append(Environment.NewLine + $"Aantal: {Aantal}");
             str.Append(Environment.NewLine + $"Bedrag van deze bestelling: {BerekenBedrag()} eur");
 
-
             return str.ToString();
         }
     }

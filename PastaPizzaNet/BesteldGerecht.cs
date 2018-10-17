@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Enum;
 
 namespace PastaPizzaNet
-{  
+{
     class BesteldGerecht : IBedrag
     {
         public BesteldGerecht(Gerecht gerecht, Grootte grootte = Grootte.Klein, List<Extra> extras = null)

@@ -34,7 +34,7 @@ namespace PastaPizzaNet
             return "F-" + base.WegSchrijven();
         }
 
-        public override decimal Prijs { get; set; }
+        public override  decimal Prijs { get; set; }
 
     }
 }

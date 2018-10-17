@@ -12,14 +12,14 @@ namespace PastaPizzaNet
 	{
 		static void Main(string[] args)
 		{
-            
-            List<Gerecht> gerechten = null;
-            List<Klant> klanten = null;
-            List<Drank> dranken = null;
-            List<BesteldGerecht> besteldeGerechten = null;
-            List<Bestelling> bestellingen = null;
-            List<Dessert> desserts = null;
-            
+			
+			List<Gerecht> gerechten = null;
+			List<Klant> klanten = null;
+			List<Drank> dranken = null;
+			List<BesteldGerecht> besteldeGerechten = null;
+			List<Bestelling> bestellingen = null;
+			List<Dessert> desserts = null;
+			
 
 			try
 			{
@@ -73,28 +73,29 @@ namespace PastaPizzaNet
 					new Bestelling(besteldeGerechten[5], dranken[2], desserts[0], 1, klanten[1]),
 					new Bestelling(drank: dranken[3], aantal:3, klant: klanten[1]),
 					new Bestelling(dessert: desserts[2],klant: klanten[0])
-				};
-                Console.WriteLine("1. Alle bestellingen");
-                LijnTrekker.TrekLijn();
+				};               
+
+				Console.WriteLine("1. Alle bestellingen");
+				LijnTrekker.TrekLijn();
 				//Alle Bestellingen
 				var bestellingNr = 1;
 				foreach(var gerecht in bestellingen)
 				{
 					Console.WriteLine($"Bestelling: {bestellingNr++}");
-					Console.WriteLine(gerecht.ToString());
+					Console.WriteLine(gerecht);
 					LijnTrekker.TrekLijn();
 				}
 
-                //Alle bestellingen van Jan Janssen
-                Clear("bestellingen van Jan Janssen");				
+				//Alle bestellingen van Jan Janssen
+				Clear("bestellingen van Jan Janssen");				
 				var bestellingenJan = from bestelling in bestellingen
 									  where bestelling.Klant.Naam == klanten[0].Naam
 									  select bestelling;
 
 				var totaalBedrag = 0m;
-                
-                Console.WriteLine("2. Alle bestellingen van Jan Janssen");
-                LijnTrekker.TrekLijn();
+				
+				Console.WriteLine("2. Alle bestellingen van Jan Janssen");
+				LijnTrekker.TrekLijn();
 
 				Console.WriteLine($"Bestellingen van klant {klanten[0].Naam}\n");
 				foreach (var bestelling in bestellingenJan)
@@ -104,15 +105,15 @@ namespace PastaPizzaNet
 					Console.WriteLine();
 				}
 				Console.WriteLine($"Het totaal bedrag van alle bestelingen van klant {klanten[0].Naam}: {totaalBedrag} euro");
-                LijnTrekker.TrekLijn();
+				LijnTrekker.TrekLijn();
 
-                Clear("bestellingen gegroepeerd per klant");
+				Clear("bestellingen gegroepeerd per klant");
 
-                Console.WriteLine("3. Alle bestellingen gegroepeerd per klant");
-                LijnTrekker.TrekLijn();
-
-                //Alle bestellingen gesorteerd per klant
-                var bestellingenPerKlant = from bestelling in bestellingen
+				//Alle bestellingen gesorteerd per klant
+				Console.WriteLine("3. Alle bestellingen gegroepeerd per klant");
+				LijnTrekker.TrekLijn();
+				
+				var bestellingenPerKlant = from bestelling in bestellingen
 										   group bestelling by bestelling.Klant.Naam;
 
 				foreach(var klant in bestellingenPerKlant)
@@ -140,16 +141,15 @@ namespace PastaPizzaNet
 				Console.WriteLine(ex.Message);
 			}
 
-            Clear("ingelezen gegevens");
-            Console.WriteLine("4. Alle ingelezen gegevens");
-            LijnTrekker.TrekLijn();
+			Clear("ingelezen gegevens");
+			Console.WriteLine("4. Alle ingelezen gegevens");
+			LijnTrekker.TrekLijn();
 
 
-            string locatie = @"C:\Data\";
-            //WegSchrijven	
-            try
-            {
-							
+			string locatie = @"C:\Data\";
+			//WegSchrijven	
+			try
+			{							
 				using (var schrijver = new StreamWriter(locatie + "Klanten.txt"))
 				{
 					foreach (var klant in klanten)
@@ -242,8 +242,8 @@ namespace PastaPizzaNet
 						BesteldGerecht besteldgerecht = null;
 						gerecht = null;
 						extras = null;
-                        drank = null;
-                        dessert = null;
+						drank = null;
+						dessert = null;
 
 						string[] bestellingGegevens = regel.Split('#');
 
@@ -254,14 +254,14 @@ namespace PastaPizzaNet
 						{
 							string[] arrBesteldgerecht = bestellingGegevens[1].Split('-');
 							if(arrBesteldgerecht[0] != "")
-                                gerecht = gerechten.Find(item => item.Naam == arrBesteldgerecht[0]);
+								gerecht = gerechten.Find(item => item.Naam == arrBesteldgerecht[0]);
 
-                            Grootte grootte = (Grootte)System.Enum.Parse(typeof(Grootte), arrBesteldgerecht[1]);
+							Grootte grootte = (Grootte)System.Enum.Parse(typeof(Grootte), arrBesteldgerecht[1]);
 
 							int aantalExtras = int.Parse(arrBesteldgerecht[2]);
 							if (aantalExtras != 0)
 							{
-                                extras = new List<Extra>();
+								extras = new List<Extra>();
 								for (int i = 0; i < aantalExtras; i++)
 								{
 									Extra extra = (Extra)System.Enum.Parse(typeof(Extra), arrBesteldgerecht[i + 3]);
@@ -270,64 +270,66 @@ namespace PastaPizzaNet
 							}							
 							besteldgerecht = new BesteldGerecht(gerecht, grootte, extras);
 						}
-                        if(bestellingGegevens[2] != "")
-                        {
-                            string[] arrDranken = bestellingGegevens[2].Split('-');
-                            var drankNaam = (Enum.Drank)System.Enum.Parse(typeof(Enum.Drank), arrDranken[1]);
-                            if (arrDranken[0] == "F")
-                                drank = new Frisdrank(drankNaam);
-                            else
-                                drank = new Warmedrank(drankNaam);
-                        }
+						if(bestellingGegevens[2] != "")
+						{
+							string[] arrDranken = bestellingGegevens[2].Split('-');
+							var drankNaam = (Enum.Drank)System.Enum.Parse(typeof(Enum.Drank), arrDranken[1]);
+							if (arrDranken[0] == "F")
+								drank = new Frisdrank(drankNaam);
+							else
+								drank = new Warmedrank(drankNaam);
+						}
 
-                        if(bestellingGegevens[3] != "")
-                        {
-                            var dessertNaam = (Enum.Dessert)System.Enum.Parse(typeof(Enum.Dessert), bestellingGegevens[3]);
-                            dessert = new Dessert(dessertNaam);
-                        }
+						if(bestellingGegevens[3] != "")
+						{
+							var dessertNaam = (Enum.Dessert)System.Enum.Parse(typeof(Enum.Dessert), bestellingGegevens[3]);
+							dessert = new Dessert(dessertNaam);
+						}
 
-                        bestelling = new Bestelling(besteldgerecht, drank, dessert, int.Parse(bestellingGegevens[4]), klant);
-                        bestellingen.Add(bestelling);	
+						bestelling = new Bestelling(besteldgerecht, drank, dessert, int.Parse(bestellingGegevens[4]), klant);
+						bestellingen.Add(bestelling);	
 					}
 				}
-                
 				
+				/*
 				Console.WriteLine("Gerechten:\n");
-                for (int i = 0; i < gerechten.Count; i++)
-                {
-                    Console.WriteLine(gerechten[i]);
-                }
+				for (int i = 0; i < gerechten.Count; i++)
+				{
+					Console.WriteLine(gerechten[i]);
+				}
 				LijnTrekker.TrekLijn();
-
+				*/
+				/*
 				Console.WriteLine("Klanten:\n");
 				for (int i = 0; i < klanten.Count; i++)
 				{
 					Console.WriteLine(klanten[i]);
 				}
 				LijnTrekker.TrekLijn();
+				*/
 
-                Console.WriteLine("Bestellingen:\n");
-                for (int i = 0; i < bestellingen.Count; i++)
-                {
-                    Console.WriteLine(bestellingen[i]);
-                    LijnTrekker.TrekLijn();
-                }				
+				
+				for (int i = 0; i < bestellingen.Count; i++)
+				{
+					Console.WriteLine(bestellingen[i]);
+					LijnTrekker.TrekLijn();
+				}				
 			}
-            catch (IOException)
-            {
-                Console.WriteLine("Fout bij het lezen van het bestand");
-            }
+			catch (IOException)
+			{
+				Console.WriteLine("Fout bij het lezen van het bestand");
+			}
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
 			}
 		}
 
-        static void Clear(string tekst)
-        {
-            Console.WriteLine($"*Druk op enter om de {tekst} te bekijken*");
-            Console.ReadLine();
-            Console.Clear();
-        }
-    }
+		static void Clear(string tekst)
+		{
+			Console.WriteLine($"*Druk op enter om de {tekst} te bekijken*");
+			Console.ReadLine();
+			Console.Clear();
+		}
+	}
 }
