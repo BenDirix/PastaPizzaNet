@@ -92,7 +92,7 @@ namespace PastaPizzaNet
 									  where bestelling.Klant.Naam == klanten[0].Naam
 									  select bestelling;
 
-				var totaalBedrag = 0m;
+				
 				
 				Console.WriteLine("2. Alle bestellingen van Jan Janssen");
 				LijnTrekker.TrekLijn();
@@ -100,10 +100,10 @@ namespace PastaPizzaNet
 				Console.WriteLine($"Bestellingen van klant {klanten[0].Naam}\n");
 				foreach (var bestelling in bestellingenJan)
 				{
-					Console.WriteLine(bestelling);
-					totaalBedrag += bestelling.BerekenBedrag();
+					Console.WriteLine(bestelling);					
 					Console.WriteLine();
 				}
+				var totaalBedrag = bestellingenJan.Sum(t => t.BerekenBedrag());
 				Console.WriteLine($"Het totaal bedrag van alle bestelingen van klant {klanten[0].Naam}: {totaalBedrag} euro");
 				LijnTrekker.TrekLijn();
 
@@ -118,18 +118,18 @@ namespace PastaPizzaNet
 
 				foreach(var klant in bestellingenPerKlant)
 				{
-					totaalBedrag = 0m;
+					
 					if (klant.Key != "Onbekende Klant") 
 						Console.WriteLine($"Bestellingen van klant {klant.Key}:\n");
 					else
 						Console.WriteLine($"{klant.Key}en:\n");
-
+					
 					foreach (var bestelling in klant)
 					{
 						Console.WriteLine(bestelling);
-						Console.WriteLine();
-						totaalBedrag += bestelling.BerekenBedrag();
+						Console.WriteLine();						
 					}
+					totaalBedrag = klant.Sum(t => t.BerekenBedrag());
 					if (klant.Key != "Onbekende Klant")
 						Console.WriteLine($"Het totaal bedrag van alle bestelingen van klant {klant.Key}: {totaalBedrag} euro");
 
