@@ -15,6 +15,7 @@ namespace PastaPizzaNet
             Grootte = grootte;
             Extras = extras;
         }
+
         public Gerecht Gerecht { get; set; }
         public Grootte Grootte { get; set; }
         public List<Extra> Extras { get; set; }
